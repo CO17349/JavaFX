@@ -20,6 +20,7 @@ public class HBoxVBoxDemo extends Application {
         BorderPane pane = new BorderPane();
 
         pane.setTop(getHBox());
+        pane.setLeft(getVBox());
 
         Scene scene = new Scene(pane);
         stage.setTitle("HBox VBox Demo");
