@@ -3,6 +3,7 @@ package ClockPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 
 import java.util.Calendar;
@@ -80,12 +81,31 @@ public class ClockPane extends Pane {
         Text t4 = new Text(centerX-3, centerY+clockRadius-12, "6");
 
         // draw second hand
+        double sLength = clockRadius * 0.8;
+        double secondX = centerX + sLength * Math.sin(second * (2*Math.PI / 60));
+        double secondY = centerY - sLength * Math.cos(second * (2*Math.PI / 60));
+        Line sLine = new Line(centerX, centerY, secondX, secondY);
+        sLine.setStroke(Color.RED);
 
         // draw minute hand
+        double mLength = clockRadius * 0.65;
+        double minuteX = centerX + mLength * Math.sin(minute * (2*Math.PI / 60));
+        double minuteY = centerY - mLength * Math.cos(minute * (2*Math.PI / 60));
+        Line mLine = new Line(centerX, centerY, minuteX, minuteY);
+        mLine.setStroke(Color.BLUE);
+        mLine.setStrokeWidth(2.0);
 
         // draw hour hand
+        double hLength = clockRadius * 0.5;
+        double hourX = centerX + hLength * Math.sin((hour % 12 + minute/60.0) * 2*Math.PI / 12);
+        double hourY = centerY - hLength * Math.cos((hour % 12 + minute/60.0) * 2*Math.PI / 12);
+        Line hLine = new Line(centerX, centerY, hourX, hourY);
+        hLine.setStroke(Color.GREEN);
+        hLine.setStrokeWidth(2.4);
 
-        // assemble the above onto the clockpane
+        // assemble the above onto the clock-pane
+        getChildren().clear();
+        getChildren().addAll(circle, t1, t2, t3, t4, sLine, mLine, hLine);
     }
 
     @Override
